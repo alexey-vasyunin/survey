@@ -61,16 +61,16 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-				<groupId>org.liquibase</groupId>
-				<artifactId>liquibase-maven-plugin</artifactId>
-				<configuration>
-					<propertyFile>resources/liquibase.properties</propertyFile>
-					<verbose>true</verbose>
-					<logging>debug</logging>
-					<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
-				</configuration>
-			</plugin>
+<!--			<plugin>-->
+<!--				<groupId>org.liquibase</groupId>-->
+<!--				<artifactId>liquibase-maven-plugin</artifactId>-->
+<!--				<configuration>-->
+<!--					<propertyFile>resources/liquibase.properties</propertyFile>-->
+<!--					<verbose>true</verbose>-->
+<!--					<logging>debug</logging>-->
+<!--					<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
 		</plugins>
 	</build>
 
