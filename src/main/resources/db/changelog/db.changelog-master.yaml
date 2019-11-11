@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-db1.yaml
+  - changeSet:
+      id: 1
+      author: survey
+      changes:
+        - createTable:
+            tableName: survey
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date_start
+                  type: datetime
+              - column:
+                  name: date_finish
+                  type: datetime
+              - column:
+                  name: actual
+                  type: boolean
