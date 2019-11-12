@@ -5,7 +5,7 @@ databaseChangeLog:
       author: survey
       changes:
         - createTable:
-            tableName: survey
+            tableName: surveys
             columns:
               - column:
                   name: id
@@ -28,3 +28,90 @@ databaseChangeLog:
               - column:
                   name: actual
                   type: boolean
+  - changeSet:
+      id: 2
+      author: survey
+      changes:
+        - createTable:
+            tableName: questions
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: survey_id
+                  type: BIGINT
+              - column:
+                  name: ordering
+                  type: INT
+        - addForeignKeyConstraint:
+            baseColumnNames: survey_id
+            baseTableName: questions
+            constraintName: fk_survey_question
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: surveys
+
+  - changeSet:
+      id: 3
+      author: survey
+      changes:
+        - insert:
+            tableName: surveys
+            columns:
+              - column:
+                  name: name
+                  value: "Test survey #1"
+
+              - column:
+                  name: date_start
+                  value: "2019-11-04 20:32:59.390583"
+
+              - column:
+                  name: date_finish
+                  value: "2019-12-04 20:32:59.390583"
+
+              - column:
+                  name: actual
+                  value: true
+
+        - insert:
+            tableName: questions
+            columns:
+              - column:
+                  name: title
+                  value: "Question 1"
+
+              - column:
+                  name: survey_id
+                  value: 1
+
+              - column:
+                  name: ordering
+                  value: 0
+
+        - insert:
+            tableName: questions
+            columns:
+              - column:
+                  name: title
+                  value: "Question 2"
+
+              - column:
+                  name: survey_id
+                  value: 1
+
+              - column:
+                  name: ordering
+                  value: 100
+
+
