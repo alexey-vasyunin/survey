@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import ru.vasyunin.interview.survey.entity.Question;
 import ru.vasyunin.interview.survey.entity.Survey;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -13,8 +13,8 @@ import java.util.List;
 public class SurveyDto {
     private long id;
     private String name;
-    private LocalDateTime dateStart;
-    private LocalDateTime dateFinish;
+    private LocalDate dateStart;
+    private LocalDate dateFinish;
     private boolean isActive;
     private List<Question> questions;
 

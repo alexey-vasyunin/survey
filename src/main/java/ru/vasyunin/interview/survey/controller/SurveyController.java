@@ -1,13 +1,11 @@
 package ru.vasyunin.interview.survey.controller;
 
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.vasyunin.interview.survey.dto.SurveyDto;
-import ru.vasyunin.interview.survey.repository.SurveyRepository;
 import ru.vasyunin.interview.survey.service.SurveyService;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -27,7 +25,11 @@ public class SurveyController {
      * @return Список объектов SurveyDto
      */
     @GetMapping("/")
-    public List<SurveyDto> getSurveys(@RequestParam(name = "page", required = false, defaultValue = "0") int page,
+    public List<SurveyDto> getSurveys(@RequestParam(name = "name", required = false) String name,
+                                      @RequestParam(name = "date", required = false) LocalDate date,
+                                      @RequestParam(name = "active", required = false) Boolean active,
+                                      @RequestParam(name = "sort") int sort,
+                                      @RequestParam(name = "page", required = false, defaultValue = "0") int page,
                                       @RequestParam(name = "size", required = false, defaultValue = "100") int size){
         return surveyService.getAllSurveys(page, size);
     }
@@ -42,8 +44,8 @@ public class SurveyController {
      */
     @PostMapping("/")
     public SurveyDto addSurvey(@RequestParam(name = "name") String name,
-                               @RequestParam(name = "dateStart") LocalDateTime dateStart,
-                               @RequestParam(name = "dateFinish") LocalDateTime dateFinish,
+                               @RequestParam(name = "dateStart") LocalDate dateStart,
+                               @RequestParam(name = "dateFinish") LocalDate dateFinish,
                                @RequestParam(name = "active", required = false, defaultValue = "0") boolean isActive){
         return surveyService.addSurvey(name, dateStart, dateFinish, isActive);
     }
@@ -71,8 +73,8 @@ public class SurveyController {
     @PutMapping("/")
     public SurveyDto changeSurvey(@RequestParam Long id,
                                @RequestParam(name = "name") String name,
-                               @RequestParam(name = "dateStart") LocalDateTime dateStart,
-                               @RequestParam(name = "dateFinish") LocalDateTime dateFinish,
+                               @RequestParam(name = "dateStart") LocalDate dateStart,
+                               @RequestParam(name = "dateFinish") LocalDate dateFinish,
                                @RequestParam(name = "active", required = false, defaultValue = "0") boolean isActive){
 
         return surveyService.changeSurvey(id, name, dateStart, dateFinish, isActive);

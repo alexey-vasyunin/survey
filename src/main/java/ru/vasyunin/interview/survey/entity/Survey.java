@@ -4,10 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.LinkedList;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Locale;
 
 @Entity
 @Data
@@ -22,10 +20,10 @@ public class Survey {
     private String name;
 
     @Column(name = "date_start")
-    private LocalDateTime dateStart;
+    private LocalDate dateStart;
 
     @Column(name = "date_finish")
-    private LocalDateTime dateFinish;
+    private LocalDate dateFinish;
 
     @Column(name = "active")
     private boolean isActive;
@@ -34,7 +32,7 @@ public class Survey {
 //    @OrderBy("ordering ASC")
     private List<Question> questions;
 
-    public Survey(String name, LocalDateTime dateStart, LocalDateTime dateFinish, boolean isActive) {
+    public Survey(String name, LocalDate dateStart, LocalDate dateFinish, boolean isActive) {
         this.name = name;
         this.dateStart = dateStart;
         this.dateFinish = dateFinish;
