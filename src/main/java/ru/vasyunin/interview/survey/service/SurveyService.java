@@ -8,7 +8,7 @@ import ru.vasyunin.interview.survey.dto.SurveyDto;
 import ru.vasyunin.interview.survey.entity.Survey;
 import ru.vasyunin.interview.survey.repository.SurveyRepository;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +39,7 @@ public class SurveyService {
      * @param isActual Флаг актуальности опроса
      * @return Возвращает объект SurveyDto созданного опроса
      */
-    public SurveyDto addSurvey(String name, LocalDateTime start, LocalDateTime finish, boolean isActual){
+    public SurveyDto addSurvey(String name, LocalDate start, LocalDate finish, boolean isActual){
         Survey survey = new Survey(name, start, finish, isActual);
         survey = surveyRepository.save(survey);
         return new SurveyDto(survey);
@@ -62,7 +62,7 @@ public class SurveyService {
      * @param active Флаг актуальности опроса
      * @return Возвращает объект SurveyDto измененного опроса
      */
-    public SurveyDto changeSurvey(long id, String name, LocalDateTime start, LocalDateTime finish, boolean active) {
+    public SurveyDto changeSurvey(long id, String name, LocalDate start, LocalDate finish, boolean active) {
         Optional<Survey> survey = surveyRepository.findById(id);
         if (!survey.isPresent())
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Survey not found");
