@@ -1,16 +1,21 @@
 package ru.vasyunin.interview.survey.service;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import ru.vasyunin.interview.survey.dto.SurveyDto;
 import ru.vasyunin.interview.survey.entity.Survey;
 import ru.vasyunin.interview.survey.repository.SurveyRepository;
+import ru.vasyunin.interview.survey.specs.SurveySpec;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SurveyService {
@@ -24,10 +29,20 @@ public class SurveyService {
      * Возвращает список опросов (постранично)
      * @param page Номер страницы
      * @param size Размер страницы
+     * @param sortType Сортировка по: 1 - имени, 2 - дате начала
      * @return Список объектов SurveyDto
      */
-    public List<SurveyDto> getAllSurveys(int page, int size){
-        return surveyRepository.findAllBy(PageRequest.of(page, size));
+    public List<SurveyDto> getAllSurveys(Specification<Survey> spec, int page, int size, int sortType){
+        Sort sort;
+        switch (sortType){
+            case 1: sort = Sort.by("name"); break;
+            case 2: sort = Sort.by("dateStart"); break;
+            default: sort = Sort.by("name");
+        }
+        return surveyRepository.findAll(spec, PageRequest.of(page, size, sort))
+                .stream()
+                .map(SurveyDto::new)
+                .collect(Collectors.toList());
     }
 
 

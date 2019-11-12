@@ -1,9 +1,12 @@
 package ru.vasyunin.interview.survey.controller;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.vasyunin.interview.survey.dto.SurveyDto;
 import ru.vasyunin.interview.survey.service.SurveyService;
+import ru.vasyunin.interview.survey.specs.SearchCriteria;
+import ru.vasyunin.interview.survey.specs.SurveySpec;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,18 +23,27 @@ public class SurveyController {
 
     /**
      * Список существующих опросов (постаничный вывод)
+     * @param name Фильтр по имени опроса (опционально)
+     * @param date Фильтр по дате - попадание в промежуток между началом и концом
+     * @param active Фильтр по статусу опроса
+     * @param sort Поле для сортировки: 1 - по названию опроса; 2 - по дате начала
      * @param page Номер страницы
      * @param size Размер страницы
      * @return Список объектов SurveyDto
      */
     @GetMapping("/")
     public List<SurveyDto> getSurveys(@RequestParam(name = "name", required = false) String name,
-                                      @RequestParam(name = "date", required = false) LocalDate date,
+                                      @RequestParam(name = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
                                       @RequestParam(name = "active", required = false) Boolean active,
                                       @RequestParam(name = "sort") int sort,
                                       @RequestParam(name = "page", required = false, defaultValue = "0") int page,
                                       @RequestParam(name = "size", required = false, defaultValue = "100") int size){
-        return surveyService.getAllSurveys(page, size);
+
+        SurveySpec specName = new SurveySpec(new SearchCriteria("name", ":", name));
+        SurveySpec specStart = new SurveySpec(new SearchCriteria("dateStart", "<", date));
+        SurveySpec specFinish = new SurveySpec(new SearchCriteria("dateFinish", ">", date));
+        SurveySpec specActive = new SurveySpec(new SearchCriteria("isActive", ":", active));
+        return surveyService.getAllSurveys(specName.and(specActive).and(specStart).and(specFinish), page, size, sort);
     }
 
     /**
