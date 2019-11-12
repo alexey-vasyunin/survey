@@ -26,7 +26,7 @@ databaseChangeLog:
                   name: date_finish
                   type: datetime
               - column:
-                  name: actual
+                  name: active
                   type: boolean
   - changeSet:
       id: 2
@@ -81,7 +81,7 @@ databaseChangeLog:
                   value: "2019-12-04 20:32:59.390583"
 
               - column:
-                  name: actual
+                  name: active
                   value: true
 
         - insert:
