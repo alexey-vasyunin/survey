@@ -1,6 +1,7 @@
 package ru.vasyunin.interview.survey.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.util.Locale;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "surveys")
 public class Survey {
     @Id
@@ -31,4 +33,11 @@ public class Survey {
     @OneToMany(fetch = FetchType.LAZY)
     @OrderBy("ordering ASC")
     private List<Question> questions;
+
+    public Survey(String name, LocalDateTime dateStart, LocalDateTime dateFinish, boolean isActive) {
+        this.name = name;
+        this.dateStart = dateStart;
+        this.dateFinish = dateFinish;
+        this.isActive = isActive;
+    }
 }
