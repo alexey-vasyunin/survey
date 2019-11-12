@@ -24,5 +24,6 @@ public class SurveyDto {
         this.dateStart = survey.getDateStart();
         this.dateFinish = survey.getDateFinish();
         this.isActive = survey.isActive();
+        this.questions = survey.getQuestions();
     }
 }
