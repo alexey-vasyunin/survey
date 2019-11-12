@@ -30,8 +30,8 @@ public class Survey {
     @Column(name = "active")
     private boolean isActive;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @OrderBy("ordering ASC")
+    @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY)
+//    @OrderBy("ordering ASC")
     private List<Question> questions;
 
     public Survey(String name, LocalDateTime dateStart, LocalDateTime dateFinish, boolean isActive) {
