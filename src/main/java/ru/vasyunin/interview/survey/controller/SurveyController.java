@@ -56,8 +56,8 @@ public class SurveyController {
      */
     @PostMapping("/")
     public SurveyDto addSurvey(@RequestParam(name = "name") String name,
-                               @RequestParam(name = "dateStart") LocalDate dateStart,
-                               @RequestParam(name = "dateFinish") LocalDate dateFinish,
+                               @RequestParam(name = "dateStart") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateStart,
+                               @RequestParam(name = "dateFinish") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateFinish,
                                @RequestParam(name = "active", required = false, defaultValue = "0") boolean isActive){
         return surveyService.addSurvey(name, dateStart, dateFinish, isActive);
     }
@@ -85,8 +85,8 @@ public class SurveyController {
     @PutMapping("/")
     public SurveyDto changeSurvey(@RequestParam Long id,
                                @RequestParam(name = "name") String name,
-                               @RequestParam(name = "dateStart") LocalDate dateStart,
-                               @RequestParam(name = "dateFinish") LocalDate dateFinish,
+                               @RequestParam(name = "dateStart") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateStart,
+                               @RequestParam(name = "dateFinish") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateFinish,
                                @RequestParam(name = "active", required = false, defaultValue = "0") boolean isActive){
 
         return surveyService.changeSurvey(id, name, dateStart, dateFinish, isActive);
