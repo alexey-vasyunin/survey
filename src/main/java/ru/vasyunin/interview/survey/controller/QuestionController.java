@@ -1,7 +1,6 @@
 package ru.vasyunin.interview.survey.controller;
 
-import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
+import io.swagger.annotations.Api;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
@@ -13,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/question")
+@Api(description = "Controller for working with questions")
 public class QuestionController {
     private final QuestionService questionService;
 
